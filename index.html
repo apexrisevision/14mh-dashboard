@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>14 Manzal Heights — Daily Closing</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-theme="dark"]{
+  --bg:          #0A0F1E;
+  --bg2:         #0F172A;
+  --bg3:         #1E293B;
+  --bg4:         #263347;
+  --border:      rgba(255,255,255,0.07);
+  --border2:     rgba(255,255,255,0.12);
+  --t1:          #F1F5F9;
+  --t2:          #CBD5E1;
+  --t3:          #94A3B8;
+  --t4:          #475569;
+  --gold:        #F59E0B;
+  --gold2:       #FCD34D;
+  --gold-l:      rgba(245,158,11,0.12);
+  --grn:         #10B981;
+  --grn-l:       rgba(16,185,129,0.12);
+  --red:         #F43F5E;
+  --red-l:       rgba(244,63,94,0.12);
+  --blu:         #60A5FA;
+  --blu-l:       rgba(96,165,250,0.12);
+  --amb:         #F59E0B;
+  --amb-l:       rgba(245,158,11,0.12);
+  --navy:        #1E40AF;
+  --card-bg:     rgba(15,23,42,0.8);
+  --card-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --header-bg:   rgba(10,15,30,0.95);
+  --tab-bg:      #0F172A;
+  --tab-active:  #1E293B;
+  --kpi-bg:      linear-gradient(135deg,rgba(30,41,59,0.9),rgba(15,23,42,0.9));
+  --glow-grn:    0 0 20px rgba(16,185,129,0.2);
+  --glow-red:    0 0 20px rgba(244,63,94,0.2);
+  --glow-blu:    0 0 20px rgba(96,165,250,0.2);
+  --glow-gld:    0 0 20px rgba(245,158,11,0.2);
+}
+
+[data-theme="light"]{
+  --bg:          #F0F4F8;
+  --bg2:         #FFFFFF;
+  --bg3:         #F8FAFC;
+  --bg4:         #EEF2F7;
+  --border:      rgba(0,0,0,0.07);
+  --border2:     rgba(0,0,0,0.12);
+  --t1:          #0F172A;
+  --t2:          #1E293B;
+  --t3:          #475569;
+  --t4:          #94A3B8;
+  --gold:        #D97706;
+  --gold2:       #B45309;
+  --gold-l:      rgba(217,119,6,0.1);
+  --grn:         #059669;
+  --grn-l:       rgba(5,150,105,0.1);
+  --red:         #E11D48;
+  --red-l:       rgba(225,29,72,0.1);
+  --blu:         #2563EB;
+  --blu-l:       rgba(37,99,235,0.1);
+  --amb:         #D97706;
+  --amb-l:       rgba(217,119,6,0.1);
+  --navy:        #1E40AF;
+  --card-bg:     rgba(255,255,255,0.95);
+  --card-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  --header-bg:   rgba(10,15,30,0.97);
+  --tab-bg:      #FFFFFF;
+  --tab-active:  #F0F4F8;
+  --kpi-bg:      linear-gradient(135deg,rgba(255,255,255,0.95),rgba(248,250,252,0.95));
+  --glow-grn:    none;
+  --glow-red:    none;
+  --glow-blu:    none;
+  --glow-gld:    none;
+}
+
+html,body{min-height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);transition:background var(--transition),color var(--transition);}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:10px}
+
+/* ── HEADER ── */
+.hdr{
+  position:sticky;top:0;z-index:100;
+  background:var(--header-bg);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:0 24px;
+  display:flex;align-items:center;gap:16px;
+  height:60px;
+}
+.logo-wrap{display:flex;align-items:center;gap:12px}
+.logo-img{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#D97706,#F59E0B);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:13px;color:#000;letter-spacing:-0.5px;flex-shrink:0}
+.logo-text{display:flex;flex-direction:column}
+.logo-title{font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:#F59E0B;letter-spacing:-0.3px;line-height:1.2}
+.logo-sub{font-size:9px;font-weight:500;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.live-badge{display:flex;align-items:center;gap:6px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.25);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:#10B981;letter-spacing:0.5px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#10B981;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hdr-clock{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.4);display:none}
+@media(min-width:768px){.hdr-clock{display:block}}
+.upd-txt{font-size:11px;color:var(--t4)}
+
+/* ── THEME TOGGLE ── */
+.theme-toggle{
+  width:44px;height:24px;border-radius:12px;
+  background:var(--bg3);border:1px solid var(--border2);
+  cursor:pointer;position:relative;transition:all var(--transition);
+  flex-shrink:0;
+}
+.theme-toggle::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--gold);transition:all var(--transition);
+  box-shadow:0 1px 4px rgba(0,0,0,0.3);
+}
+[data-theme="light"] .theme-toggle::after{left:23px;background:#60A5FA}
+.toggle-icons{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 5px;font-size:9px;pointer-events:none}
+
+/* ── NAV TABS ── */
+.nav-wrap{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:0 16px;
+  display:flex;gap:4px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  transition:background var(--transition);
+}
+.nav-wrap::-webkit-scrollbar{display:none}
+.tab{
+  padding:14px 18px;border:none;background:transparent;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  color:var(--t3);white-space:nowrap;
+  border-bottom:2px solid transparent;
+  transition:all 0.2s;display:flex;align-items:center;gap:7px;
+}
+.tab:hover{color:var(--t1)}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:600}
+.tab-icon{font-size:14px}
+
+/* ── PANELS ── */
+.panel{display:none;animation:fadeIn 0.3s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.panel-inner{max-width:1200px;margin:0 auto;padding:24px 16px 48px}
+
+/* ── STATION HEADER ── */
+.stn-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.stn-title{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--t1);letter-spacing:-0.5px}
+.stn-sub{font-size:12px;color:var(--t4);margin-top:3px}
+.date-chip{
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:8px;padding:6px 14px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+  color:var(--gold);
+}
+
+/* ── DAY NAV ── */
+.dnav{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.dbn{
+  padding:5px 12px;border-radius:6px;border:1px solid var(--border);
+  background:var(--bg3);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
+  color:var(--t3);transition:all 0.2s;
+}
+.dbn:hover{border-color:var(--gold);color:var(--gold)}
+.dbn.active{background:var(--gold);border-color:var(--gold);color:#000;font-weight:700}
+
+/* ── KPI STRIP ── */
+.kpi-strip{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:12px;
+  margin-bottom:24px;
+}
+@media(max-width:900px){.kpi-strip{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.kpi-strip{grid-template-columns:repeat(2,1fr)}}
+
+.kc{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(10px);
+  transition:all var(--transition);
+}
+.kc:hover{border-color:var(--border2);transform:translateY(-1px)}
+.kc-accent{height:3px;border-radius:3px;margin-bottom:14px;width:32px}
+.kc-accent.g{background:var(--t4)}
+.kc-accent.grn{background:var(--grn)}
+.kc-accent.red{background:var(--red)}
+.kc-accent.blu{background:var(--blu)}
+.kc-accent.gld{background:var(--gold)}
+.kc-lbl{font-size:10px;font-weight:600;color:var(--t4);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.kc-val{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--t1);line-height:1.1;letter-spacing:-0.5px}
+.kc-val.pos{color:var(--grn)}
+.kc-val.neg{color:var(--red)}
+@media(max-width:560px){.kc-val{font-size:15px}}
+.kc-unit{font-size:9px;color:var(--t4);margin-top:4px;font-family:'JetBrains Mono',monospace}
+.kc-delta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;margin-top:6px;padding:2px 7px;border-radius:4px}
+.kc-delta.up{color:var(--grn);background:var(--grn-l)}
+.kc-delta.dn{color:var(--red);background:var(--red-l)}
+
+/* ── SECTION LABEL ── */
+.sec-label{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;margin-top:28px;
+}
+.sec-icon{
+  width:28px;height:28px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;letter-spacing:-0.5px;
+  font-family:'Sora',sans-serif;
+}
+.sec-icon.rs{background:var(--gold-l);color:var(--gold)}
+.sec-icon.bk{background:var(--blu-l);color:var(--blu)}
+.sec-icon.pd{background:var(--amb-l);color:var(--amb)}
+.sec-title{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3)}
+.sec-line{flex:1;height:1px;background:var(--border)}
+
+/* ── TRANSACTION CARDS ── */
+.tcards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.tcards{grid-template-columns:1fr}}
+.tcard{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;
+  backdrop-filter:blur(10px);
+  transition:all var(--transition);
+}
+.tcard-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;border-bottom:1px solid var(--border);
+}
+.tcard-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.tcard-title.in{color:var(--grn)}
+.tcard-title.out{color:var(--red)}
+.tcard-title.pr{color:var(--amb)}
+.tcard-title.pi{color:var(--blu)}
+.tcard-total{font-family:'Sora',sans-serif;font-size:15px;font-weight:700}
+.tcard-total.in{color:var(--grn)}
+.tcard-total.out{color:var(--red)}
+.tcard-total.pr{color:var(--amb)}
+.tcard-total.pi{color:var(--blu)}
+
+.dt{width:100%;border-collapse:collapse}
+.dt td{padding:10px 18px;font-size:13px;color:var(--t2);border-bottom:1px solid var(--border)}
+.dt tr:last-child td{border-bottom:none}
+.dt .r{text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;white-space:nowrap}
+.dt .pos{color:var(--grn)}
+.dt .neg{color:var(--red)}
+.dt .amb{color:var(--amb)}
+.dt .blu{color:var(--blu)}
+.dt .foot{font-weight:700;background:var(--bg3)}
+.dt .foot td{color:var(--t1)}
+.dt .empty td{text-align:center;padding:24px;color:var(--t4);font-style:italic;font-size:12px}
+.dt tr:hover:not(.foot):not(.empty){background:var(--bg3)}
+
+/* ── BANK CARD ── */
+.bcard{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;
+  backdrop-filter:blur(10px);
+}
+.bcard-hdr{
+  background:linear-gradient(135deg,#0F172A,#1E293B);
+  padding:18px 20px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+[data-theme="light"] .bcard-hdr{background:linear-gradient(135deg,#1E293B,#0F172A)}
+.bcard-left{display:flex;align-items:center;gap:14px}
+.bcard-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,#1D4ED8,#3B82F6);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Sora',sans-serif;font-size:11px;font-weight:800;color:#fff;
+  flex-shrink:0;
+}
+.bcard-name{font-size:13px;font-weight:600;color:#F1F5F9;margin-bottom:2px}
+.bcard-acct{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4)}
+.bcard-bal{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#F1F5F9}
+.bcard-bal.neg{color:#F43F5E}
+.bcard-bal.pos{color:#10B981}
+
+.bt{width:100%;border-collapse:collapse}
+.bt td,.bt th{padding:11px 18px;font-size:12px;border-bottom:1px solid var(--border)}
+.bt th{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t4);text-align:right;padding-top:14px;padding-bottom:14px;background:var(--bg3)}
+.bt th:first-child{text-align:left}
+.bt td{color:var(--t2)}
+.bt td:first-child{color:var(--t2)}
+.bt .r{text-align:right}
+.bt .cin{text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--grn)}
+.bt .cout{text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--red)}
+.bt .run{text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700}
+.bt .run.pos{color:var(--t1)}
+.bt .run.neg{color:var(--red)}
+.bt .foot{background:var(--bg3);font-weight:700}
+.bt .foot td{color:var(--t1)}
+.bt .hd th{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t4)}
+.bt tr:hover:not(.foot){background:var(--bg3)}
+
+/* ── PDC BADGES ── */
+.pdc-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t4)}
+.pdc-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:0.3px}
+.pdc-badge.urgent{background:rgba(244,63,94,0.15);color:var(--red);border:1px solid rgba(244,63,94,0.3)}
+.pdc-badge.soon{background:rgba(245,158,11,0.15);color:var(--gold);border:1px solid rgba(245,158,11,0.3)}
+.pdc-badge.ok{background:var(--bg3);color:var(--t3);border:1px solid var(--border)}
+
+/* ── CUMULATIVE ── */
+.kpi4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+@media(max-width:800px){.kpi4{grid-template-columns:repeat(2,1fr)}}
+.kpi-card{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:14px;padding:18px 20px;
+  backdrop-filter:blur(10px);
+  transition:all var(--transition);
+}
+.kpi-card:hover{border-color:var(--border2)}
+.kpi-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t4);margin-bottom:10px}
+.kpi-val{font-family:'Sora',sans-serif;font-size:24px;font-weight:800;color:var(--t1);letter-spacing:-0.5px}
+.kpi-val.pos{color:var(--grn)}
+.kpi-val.neg{color:var(--red)}
+@media(max-width:560px){.kpi-val{font-size:20px}}
+.kpi-bar-wrap{margin-top:10px;height:3px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.kpi-bar{height:100%;border-radius:3px;width:0;transition:width 1s cubic-bezier(0.4,0,0.2,1)}
+.kpi-bar.cc{background:linear-gradient(90deg,var(--grn),#34D399)}
+.kpi-bar.cb{background:linear-gradient(90deg,var(--blu),#93C5FD)}
+.kpi-bar.pr{background:linear-gradient(90deg,var(--amb),#FCD34D)}
+.kpi-bar.pp{background:linear-gradient(90deg,var(--red),#FDA4AF)}
+
+.con-wrap{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;margin-bottom:16px;
+  backdrop-filter:blur(10px);
+}
+.con-hdr{
+  padding:16px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+.con-hdr-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--t1)}
+.con-hdr-date{font-size:11px;color:var(--t4);font-family:'JetBrains Mono',monospace}
+
+.ctbl{width:100%;border-collapse:collapse;font-size:13px}
+.ctbl th{
+  padding:11px 16px;font-size:10px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--t4);
+  text-align:right;background:var(--bg3);border-bottom:1px solid var(--border);
+}
+.ctbl th:first-child{text-align:left}
+.ctbl td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--t2)}
+.ctbl tr:last-child td{border-bottom:none}
+.ctbl .num{text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600}
+.ctbl .pos{color:var(--grn)}
+.ctbl .neg{color:var(--red)}
+.ctbl .neu{color:var(--t2)}
+.ctbl .amb{color:var(--amb)}
+.ctbl .blu{color:var(--blu)}
+.ctbl .sep-r td{
+  background:var(--bg3);font-size:10px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--t4);
+  padding:10px 16px;border-top:1px solid var(--border2);
+}
+.ctbl .tot-r{background:var(--bg3)}
+.ctbl .tot-r td{font-weight:700;color:var(--t1);border-top:2px solid var(--border2)}
+.ctbl .tot-h{font-weight:700;color:var(--gold) !important}
+.ctbl tr:hover:not(.sep-r):not(.tot-r){background:var(--bg3)}
+
+/* ── FOOTER ── */
+.ftr{
+  text-align:center;padding:20px;
+  font-size:11px;color:var(--t4);
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:8px;
+  max-width:1200px;margin:0 auto;
+}
+
+/* ── MOBILE ── */
+@media(max-width:500px){
+  .hdr{padding:0 14px;height:54px}
+  .logo-title{font-size:13px}
+  .panel-inner{padding:16px 12px 40px}
+  .stn-title{font-size:18px}
+  .bcard-hdr{flex-direction:column;align-items:flex-start;gap:10px}
+  .bcard-bal{font-size:17px}
+  .bt td,.bt th{padding:9px 12px}
+  .dt td{padding:9px 14px}
+  .kpi-val{font-size:18px}
+  .ctbl th,.ctbl td{padding:9px 10px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="logo-wrap">
+    <div class="logo-img">14</div>
+    <div class="logo-text">
+      <div class="logo-title">14 Manzal Heights</div>
+      <div class="logo-sub">Daily Closing Report</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="live-badge"><span class="live-dot"></span>LIVE</div>
+    <span class="hdr-clock" id="clk"></span>
+    <div class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <div class="toggle-icons"><span>🌙</span><span>☀️</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<nav class="nav-wrap">
+  <button class="tab active" onclick="go('kbh',this)"><span class="tab-icon">🏢</span>KBH</button>
+  <button class="tab" onclick="go('fmh',this)"><span class="tab-icon">🏗️</span>FMH</button>
+  <button class="tab" onclick="go('awami',this)"><span class="tab-icon">🏪</span>Awami Market</button>
+  <button class="tab" onclick="go('cumul',this)"><span class="tab-icon">📊</span>Cumulative</button>
+</nav>
+
+<!-- KBH -->
+<div class="panel active" id="p-kbh">
+  <div class="panel-inner">
+    <div class="stn-hdr">
+      <div><div class="stn-title">KBH — Daily Closing</div><div class="stn-sub">Korangi Business Hub</div></div>
+      <div class="date-chip" id="kbh-chip">—</div>
+    </div>
+    <div class="dnav" id="kbh-dnav"></div>
+    <div class="kpi-strip" id="kbh-strip"></div>
+    <div class="sec-label"><div class="sec-icon rs">Rs</div><div class="sec-title">Cash Transactions</div><div class="sec-line"></div></div>
+    <div class="tcards" id="kbh-cash"></div>
+    <div class="sec-label"><div class="sec-icon bk">B</div><div class="sec-title">Bank Al-Habib</div><div class="sec-line"></div></div>
+    <div id="kbh-bank"></div>
+    <div class="sec-label"><div class="sec-icon pd">PDC</div><div class="sec-title">Post-Dated Cheques</div><div class="sec-line"></div></div>
+    <div class="tcards" id="kbh-pdc"></div>
+  </div>
+</div>
+
+<!-- FMH -->
+<div class="panel" id="p-fmh">
+  <div class="panel-inner">
+    <div class="stn-hdr">
+      <div><div class="stn-title">FMH — Daily Closing</div><div class="stn-sub">Fatima Manzal Heights</div></div>
+      <div class="date-chip" id="fmh-chip">—</div>
+    </div>
+    <div class="dnav" id="fmh-dnav"></div>
+    <div class="kpi-strip" id="fmh-strip"></div>
+    <div class="sec-label"><div class="sec-icon rs">Rs</div><div class="sec-title">Cash Transactions</div><div class="sec-line"></div></div>
+    <div class="tcards" id="fmh-cash"></div>
+    <div class="sec-label"><div class="sec-icon bk">B</div><div class="sec-title">Bank Al-Habib</div><div class="sec-line"></div></div>
+    <div id="fmh-bank"></div>
+    <div class="sec-label"><div class="sec-icon pd">PDC</div><div class="sec-title">Post-Dated Cheques</div><div class="sec-line"></div></div>
+    <div class="tcards" id="fmh-pdc"></div>
+  </div>
+</div>
+
+<!-- AWAMI -->
+<div class="panel" id="p-awami">
+  <div class="panel-inner">
+    <div class="stn-hdr">
+      <div><div class="stn-title">Awami Market — Daily Closing</div><div class="stn-sub">Awami Market</div></div>
+      <div class="date-chip" id="awami-chip">—</div>
+    </div>
+    <div class="dnav" id="awami-dnav"></div>
+    <div class="kpi-strip" id="awami-strip"></div>
+    <div class="sec-label"><div class="sec-icon rs">Rs</div><div class="sec-title">Cash Transactions</div><div class="sec-line"></div></div>
+    <div class="tcards" id="awami-cash"></div>
+    <div class="sec-label"><div class="sec-icon bk">B</div><div class="sec-title">Bank Al-Habib</div><div class="sec-line"></div></div>
+    <div id="awami-bank"></div>
+    <div class="sec-label"><div class="sec-icon pd">PDC</div><div class="sec-title">Post-Dated Cheques</div><div class="sec-line"></div></div>
+    <div class="tcards" id="awami-pdc"></div>
+  </div>
+</div>
+
+<!-- CUMULATIVE -->
+<div class="panel" id="p-cumul">
+  <div class="panel-inner">
+    <div class="stn-hdr">
+      <div><div class="stn-title">Cumulative Summary</div><div class="stn-sub">All Stations Combined</div></div>
+    </div>
+    <div class="kpi4">
+      <div class="kpi-card">
+        <div class="kpi-lbl">Total Cash</div>
+        <div class="kpi-val" id="kc">PKR 0</div>
+        <div class="kpi-bar-wrap"><div class="kpi-bar cc" id="kc-b"></div></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">Bank Balance</div>
+        <div class="kpi-val" id="kb">PKR 0</div>
+        <div class="kpi-bar-wrap"><div class="kpi-bar cb" id="kb-b"></div></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">PDC Receivable</div>
+        <div class="kpi-val" id="kpr">PKR 0</div>
+        <div class="kpi-bar-wrap"><div class="kpi-bar pr" id="kpr-b"></div></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">PDC Payable</div>
+        <div class="kpi-val" id="kpp">PKR 0</div>
+        <div class="kpi-bar-wrap"><div class="kpi-bar pp" id="kpp-b"></div></div>
+      </div>
+    </div>
+    <div id="c-con"></div>
+    <div id="c-pdc"></div>
+  </div>
+</div>
+
+<div class="ftr" style="padding:16px 24px">
+  <span>14 Group of Companies — Confidential. Directors only.</span>
+  <span class="upd-txt" id="upd">—</span>
+</div>
+
+<script>
+function toggleTheme(){
+  const h=document.documentElement;
+  h.setAttribute('data-theme', h.getAttribute('data-theme')==='dark'?'light':'dark');
+  localStorage.setItem('theme', h.getAttribute('data-theme'));
+}
+(function(){const t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+
+const SHEETS={
+  kbh:   {url:"https://script.google.com/macros/s/AKfycbxqsMAR8TvY6buTIUBwRofl85_petV1TxGGhEqTlB7r3BMu7D9LcKsYOW0PazX2pK_BrA/exec"},
+  fmh:   {url:"https://script.google.com/macros/s/AKfycby6_tLs3Htrhve-z-_z7fKqPSXY4rjYYUC8CauKUMoOp1-AHw4dh2uVz8d7yJm9xv3k/exec"},
+  awami: {url:"https://script.google.com/macros/s/AKfycbxk-apaUah2s-OO0Bg7wVmW8ODtDd2pABH_WXU_B0zNqSmrgGJhiYXdYAAdXQvU6WCz/exec"}
+};
+const USE_LIVE=true;
+const SAMPLE={kbh:[],fmh:[],awami:[]};
+let D={kbh:[],fmh:[],awami:[]},SEL={kbh:0,fmh:0,awami:0};
+const N=v=>isNaN(v)||v==null?"—":Math.abs(Math.round(v)).toLocaleString("en-PK");
+const sg=v=>v>=0?"pos":"neg";
+const proc=rows=>rows.map(r=>({...r,closing_cash:(+r.opening_cash)+(+r.cash_in)-(+r.cash_out),closing_bank:(+r.opening_bank)+(+r.bank_in)-(+r.bank_out)}));
+function pD(s){if(!s)return[];return s.split("|").map(x=>{const parts=x.split(":");if(parts.length<2)return null;const desc=parts[0].trim();const amt=parseFloat(parts[parts.length-1].replace(/,/g,""));return desc?{desc,amt:isNaN(amt)?0:amt}:null;}).filter(Boolean);}
+function pBank(s){if(!s)return[];return s.split("|").map(x=>{const parts=x.split(":");if(parts.length<3)return null;const desc=parts[0].trim();const bankIn=parseFloat(parts[1])||0;const bankOut=parseFloat(parts[2])||0;if(!desc||(!bankIn&&!bankOut))return null;return{desc,in:bankIn,out:bankOut};}).filter(Boolean);}
+function pP(s){if(!s)return[];return s.split("|").map(x=>{const i=x.lastIndexOf(":");if(i<0)return null;const full=x.slice(0,i).trim(),amt=parseFloat(x.slice(i+1).replace(/,/g,""));const dm=full.match(/due (\d{2}\.\d{2}\.\d{4})/i);const due=dm?dm[1]:"";const desc=full.replace(/due \d{2}\.\d{2}\.\d{4}/i,"").trim();return{desc,amt:isNaN(amt)?0:amt,due};}).filter(Boolean);}
+function pSt(due){if(!due)return{cls:"ok",label:"Pending"};const[d,m,y]=due.split(".").map(Number);const diff=Math.ceil((new Date(y,m-1,d)-new Date())/864e5);if(diff<=3)return{cls:"urgent",label:"Due Soon"};if(diff<=10)return{cls:"soon",label:"In "+diff+"d"};return{cls:"ok",label:"In "+diff+"d"};}
+function anim(el,v,neg=false){const s=performance.now();(function f(n){const t=Math.min((n-s)/900,1),e=1-Math.pow(1-t,4),c=Math.round(Math.abs(v)*e);el.textContent=(neg?"-":"")+"PKR "+c.toLocaleString("en-PK");if(t<1)requestAnimationFrame(f);})(s);}
+function tick(){const d=new Date();document.getElementById("clk").textContent=d.toLocaleDateString("en-PK",{weekday:"short",day:"2-digit",month:"short",year:"numeric"})+"   "+d.toLocaleTimeString("en-PK",{hour:"2-digit",minute:"2-digit",second:"2-digit"});}
+setInterval(tick,1000);tick();
+function jsonp(url){
+  return new Promise((res,rej)=>{
+    const id='cb_'+Math.random().toString(36).slice(2);
+    window[id]=data=>{delete window[id];document.head.removeChild(s);res(data);};
+    const s=document.createElement('script');
+    s.src=url+(url.includes('?')?'&':'?')+'callback='+id;
+    s.onerror=()=>{delete window[id];document.head.removeChild(s);rej(new Error('failed'));};
+    document.head.appendChild(s);
+  });
+}
+async function load(){
+  if(!USE_LIVE){D.kbh=proc(SAMPLE.kbh);D.fmh=proc(SAMPLE.fmh);D.awami=proc(SAMPLE.awami);}
+  else{
+    for(const k of['kbh','fmh','awami']){
+      if(!SHEETS[k].url)continue;
+      try{
+        const json=await jsonp(SHEETS[k].url);
+        D[k]=json.map(row=>({...row,closing_cash:(+row.opening_cash)+(+row.cash_in)-(+row.cash_out),closing_bank:(+row.opening_bank)+(+row.bank_in)-(+row.bank_out)}));
+      }catch(e){console.error(k,e);}
+    }
+  }
+  Object.keys(SEL).forEach(k=>SEL[k]=Math.max(0,D[k].length-1));
+  renderAll();
+}
+function renderAll(){document.getElementById("upd").textContent="Updated: "+new Date().toLocaleTimeString("en-PK",{hour:"2-digit",minute:"2-digit"});["kbh","fmh","awami"].forEach(rS);rC();}
+function rS(k){
+  const rows=D[k];if(!rows.length)return;
+  const idx=SEL[k],d=rows[idx],prev=idx>0?rows[idx-1]:null;
+  document.getElementById(k+"-chip").textContent=d.date;
+  document.getElementById(k+"-dnav").innerHTML=rows.map((r,i)=>`<button class="dbn${i===idx?" active":""}" onclick="selDay('${k}',${i})">${r.date}</button>`).join("");
+  const cd=prev?d.closing_cash-prev.closing_cash:0,bd=prev?d.closing_bank-prev.closing_bank:0;
+  document.getElementById(k+"-strip").innerHTML=`
+    <div class="kc"><div class="kc-accent g"></div><div class="kc-lbl">Opening Cash</div><div class="kc-val" id="${k}-oc">PKR 0</div></div>
+    <div class="kc"><div class="kc-accent grn"></div><div class="kc-lbl">Cash Received</div><div class="kc-val pos" id="${k}-ci">PKR 0</div></div>
+    <div class="kc"><div class="kc-accent red"></div><div class="kc-lbl">Cash Paid</div><div class="kc-val neg" id="${k}-co">PKR 0</div></div>
+    <div class="kc"><div class="kc-accent gld"></div><div class="kc-lbl">Closing Cash</div><div class="kc-val ${sg(d.closing_cash)}" id="${k}-cc">PKR 0</div>${prev?`<div class="kc-delta ${cd>=0?"up":"dn"}">${cd>=0?"▲":"▼"} PKR ${N(Math.abs(cd))}</div>`:""}</div>
+    <div class="kc"><div class="kc-accent blu"></div><div class="kc-lbl">Bank Balance</div><div class="kc-val ${sg(d.closing_bank)}" id="${k}-bk">PKR 0</div>${prev?`<div class="kc-delta ${bd>=0?"up":"dn"}">${bd>=0?"▲":"▼"} PKR ${N(Math.abs(bd))}</div>`:""}</div>`;
+  setTimeout(()=>{anim(document.getElementById(k+"-oc"),d.opening_cash,d.opening_cash<0);anim(document.getElementById(k+"-ci"),d.cash_in);anim(document.getElementById(k+"-co"),d.cash_out);anim(document.getElementById(k+"-cc"),d.closing_cash,d.closing_cash<0);anim(document.getElementById(k+"-bk"),d.closing_bank,d.closing_bank<0);},60);
+  const iT=pD(d.cash_in_detail),oT=pD(d.cash_out_detail);
+  document.getElementById(k+"-cash").innerHTML=`
+    <div class="tcard"><div class="tcard-hdr"><span class="tcard-title in">▲ Cash Received</span><span class="tcard-total in">PKR ${N(d.cash_in)}</span></div><table class="dt">${iT.length?iT.map(t=>`<tr><td>${t.desc}</td><td class="r pos">+${N(t.amt)}</td></tr>`).join(""):`<tr class="empty"><td colspan="2">No detail entered</td></tr>`}<tr class="foot"><td>Total Cash Received</td><td class="r pos">+PKR ${N(d.cash_in)}</td></tr></table></div>
+    <div class="tcard"><div class="tcard-hdr"><span class="tcard-title out">▼ Cash Paid</span><span class="tcard-total out">PKR ${N(d.cash_out)}</span></div><table class="dt">${oT.length?oT.map(t=>`<tr><td>${t.desc}</td><td class="r neg">-${N(t.amt)}</td></tr>`).join(""):`<tr class="empty"><td colspan="2">No detail entered</td></tr>`}<tr class="foot"><td>Total Cash Paid</td><td class="r neg">-PKR ${N(d.cash_out)}</td></tr></table></div>`;
+  const aB=pBank(d.bank_detail||"").map(t=>t.in>0?{desc:t.desc,amt:t.in,type:"in"}:{desc:t.desc,amt:t.out,type:"out"});
+  let rb=+d.opening_bank;
+  document.getElementById(k+"-bank").innerHTML=`<div class="bcard"><div class="bcard-hdr"><div class="bcard-left"><div class="bcard-icon">AL</div><div><div class="bcard-name">Bank Al-Habib — M/S 14 Development</div><div class="bcard-acct">PK67 BAHL 2006 0981 0099 3501</div></div></div><div class="bcard-bal ${sg(d.closing_bank)}">${d.closing_bank<0?"-":""}PKR ${N(d.closing_bank)}</div></div><table class="bt"><tr class="hd"><th>Description</th><th>Bank In</th><th>Bank Out</th><th>Running Balance</th></tr><tr><td style="color:var(--t4)">Opening Balance — ${d.date}</td><td class="cin">—</td><td class="cout">—</td><td class="run ${sg(rb)}">${rb<0?"-":""}PKR ${N(rb)}</td></tr>${aB.map(t=>{rb+=t.type==="in"?t.amt:-t.amt;return`<tr><td>${t.desc}</td><td class="cin">${t.type==="in"?"+PKR "+N(t.amt):"—"}</td><td class="cout">${t.type==="out"?"-PKR "+N(t.amt):"—"}</td><td class="run ${sg(rb)}">${rb<0?"-":""}PKR ${N(rb)}</td></tr>`;}).join("")}<tr class="foot"><td>Closing Balance</td><td class="cin">+PKR ${N(d.bank_in)}</td><td class="cout">-PKR ${N(d.bank_out)}</td><td class="run" style="color:var(--gold)">${d.closing_bank<0?"-":""}PKR ${N(d.closing_bank)}</td></tr></table></div>`;
+  const pR=pP(d.pdc_received||""),pI=pP(d.pdc_issued||"");
+  document.getElementById(k+"-pdc").innerHTML=`
+    <div class="tcard"><div class="tcard-hdr"><span class="tcard-title pr">PDC Receivable</span><span class="tcard-total pr">PKR ${N(pR.reduce((s,t)=>s+t.amt,0))}</span></div><table class="dt">${pR.length?pR.map(t=>{const st=pSt(t.due);return`<tr><td><div style="font-size:13px">${t.desc}</div><div style="display:flex;align-items:center;gap:7px;margin-top:5px"><span class="pdc-date">${t.due||"—"}</span><span class="pdc-badge ${st.cls}">${st.label}</span></div></td><td class="r amb">+PKR ${N(t.amt)}</td></tr>`;}).join(""):`<tr class="empty"><td colspan="2">No PDC receivable</td></tr>`}${pR.length?`<tr class="foot"><td>Total Receivable</td><td class="r amb">PKR ${N(pR.reduce((s,t)=>s+t.amt,0))}</td></tr>`:""}</table></div>
+    <div class="tcard"><div class="tcard-hdr"><span class="tcard-title pi">PDC Payable</span><span class="tcard-total pi">PKR ${N(pI.reduce((s,t)=>s+t.amt,0))}</span></div><table class="dt">${pI.length?pI.map(t=>{const st=pSt(t.due);return`<tr><td><div style="font-size:13px">${t.desc}</div><div style="display:flex;align-items:center;gap:7px;margin-top:5px"><span class="pdc-date">${t.due||"—"}</span><span class="pdc-badge ${st.cls}">${st.label}</span></div></td><td class="r blu">-PKR ${N(t.amt)}</td></tr>`;}).join(""):`<tr class="empty"><td colspan="2">No PDC issued</td></tr>`}${pI.length?`<tr class="foot"><td>Total Payable</td><td class="r blu">PKR ${N(pI.reduce((s,t)=>s+t.amt,0))}</td></tr>`:""}</table></div>`;
+}
+function rC(){
+  const lat={};["kbh","fmh","awami"].forEach(k=>{const r=D[k];lat[k]=r.length?r[r.length-1]:null;});
+  const kd=lat.kbh,fd=lat.fmh,cd=lat.awami;
+  const tCC=(kd?kd.closing_cash:0)+(fd?fd.closing_cash:0)+(cd?cd.closing_cash:0);
+  const tCB=(kd?kd.closing_bank:0)+(fd?fd.closing_bank:0)+(cd?cd.closing_bank:0);
+  const tPR=[...(kd?pP(kd.pdc_received):[]),...(fd?pP(fd.pdc_received):[]),...(cd?pP(cd.pdc_received):[])].reduce((s,t)=>s+t.amt,0);
+  const tPI=[...(kd?pP(kd.pdc_issued):[]),...(fd?pP(fd.pdc_issued):[]),...(cd?pP(cd.pdc_issued):[])].reduce((s,t)=>s+t.amt,0);
+  const mx=Math.max(Math.abs(tCC),Math.abs(tCB),tPR,tPI)||1;
+  const E=id=>document.getElementById(id);
+  setTimeout(()=>{anim(E("kc"),tCC,tCC<0);anim(E("kb"),tCB,tCB<0);anim(E("kpr"),tPR);anim(E("kpp"),tPI);E("kc-b").style.width=(Math.abs(tCC)/mx*100)+"%";E("kb-b").style.width=(Math.abs(tCB)/mx*100)+"%";E("kpr-b").style.width=(tPR/mx*100)+"%";E("kpp-b").style.width=(tPI/mx*100)+"%";},60);
+  if(tCC<0)E("kc").className="kpi-val neg";if(tCB<0)E("kb").className="kpi-val neg";if(tPI>0)E("kpp").className="kpi-val neg";
+  const latDate=[kd,fd,cd].filter(Boolean).map(d=>d.date).sort().pop()||"—";
+  function vC(v,pre="",cls="neu"){return`<td class="num ${cls}">${v===null?"—":(v<0?"-":pre)+"PKR "+N(Math.abs(v))}</td>`;}
+  function tC2(v,pre="",cls="neu",big=false){return`<td class="num ${cls}"${big?' style="font-size:14px"':""}>${(v<0?"-":pre)+"PKR "+N(Math.abs(v))}</td>`;}
+  const cR=[{sep:"CASH — Daily Figures"},{lbl:"Opening Cash",kv:kd?kd.opening_cash:null,fv:fd?fd.opening_cash:null,cv:cd?cd.opening_cash:null,pre:"",cls:v=>v>=0?"neu":"neg"},{lbl:"Today Received",kv:kd?+kd.cash_in:null,fv:fd?+fd.cash_in:null,cv:cd?+cd.cash_in:null,pre:"+",cls:()=>"pos"},{lbl:"Today Paid",kv:kd?+kd.cash_out:null,fv:fd?+fd.cash_out:null,cv:cd?+cd.cash_out:null,pre:"-",cls:()=>"neg"},{lbl:"Closing Cash",kv:kd?kd.closing_cash:null,fv:fd?fd.closing_cash:null,cv:cd?cd.closing_cash:null,pre:"",cls:v=>v>=0?"pos":"neg",tot:true},{sep:"BANK — Daily Figures"},{lbl:"Opening Bank",kv:kd?kd.opening_bank:null,fv:fd?fd.opening_bank:null,cv:cd?cd.opening_bank:null,pre:"",cls:v=>v>=0?"neu":"neg"},{lbl:"Bank Receipts",kv:kd?+kd.bank_in:null,fv:fd?+fd.bank_in:null,cv:cd?+cd.bank_in:null,pre:"+",cls:()=>"pos"},{lbl:"Bank Payments",kv:kd?+kd.bank_out:null,fv:fd?+fd.bank_out:null,cv:cd?+cd.bank_out:null,pre:"-",cls:()=>"neg"},{lbl:"Closing Bank",kv:kd?kd.closing_bank:null,fv:fd?fd.closing_bank:null,cv:cd?cd.closing_bank:null,pre:"",cls:v=>v>=0?"pos":"neg",tot:true}];
+  const tH=cR.map(r=>{if(r.sep)return`<tr class="sep-r"><td colspan="5">${r.sep}</td></tr>`;const tv=(r.kv||0)+(r.fv||0)+(r.cv||0);const tc=r.cls(tv);return`<tr class="${r.tot?"tot-r":""}"><td>${r.lbl}</td>${vC(r.kv,r.pre,r.cls(r.kv||0))}${vC(r.fv,r.pre,r.cls(r.fv||0))}${vC(r.cv,r.pre,r.cls(r.cv||0))}${tC2(tv,r.pre,tc,r.tot)}</tr>`;}).join("");
+  E("c-con").innerHTML=`<div class="con-wrap"><div class="con-hdr"><span class="con-hdr-title">Cash & Bank — All Stations Combined</span><span class="con-hdr-date">Latest: ${latDate}</span></div><table class="ctbl"><tr><th style="text-align:left;width:200px">Description</th><th>KBH</th><th>FMH</th><th>Awami Market</th><th class="tot-h">Combined Total</th></tr>${tH}</table></div>`;
+  const aP=[];["kbh","fmh","awami"].forEach(k=>{const d=lat[k];if(!d)return;const lb={kbh:"KBH",fmh:"FMH",awami:"Awami"}[k];pP(d.pdc_received).forEach(t=>aP.push({...t,station:lb,type:"Receivable"}));pP(d.pdc_issued).forEach(t=>aP.push({...t,station:lb,type:"Payable"}));});
+  aP.sort((a,b)=>{const f=s=>{if(!s)return 99999;const[d,m,y]=s.split(".").map(Number);return new Date(y,m-1,d)-new Date()};return f(a.due)-f(b.due);});
+  const tPR2=aP.filter(x=>x.type==="Receivable").reduce((s,t)=>s+t.amt,0);
+  const tPI2=aP.filter(x=>x.type==="Payable").reduce((s,t)=>s+t.amt,0);
+  E("c-pdc").innerHTML=`<div class="con-wrap"><div class="con-hdr"><span class="con-hdr-title">PDC — All Stations (Sorted by Due Date)</span><span class="con-hdr-date">Receivable: PKR ${N(tPR2)} | Payable: PKR ${N(tPI2)}</span></div><table class="ctbl"><tr><th style="text-align:left">Description</th><th style="text-align:left">Station</th><th style="text-align:left">Type</th><th style="text-align:left">Due Date</th><th style="text-align:left">Status</th><th>Amount</th></tr>${aP.length?aP.map(t=>{const st=pSt(t.due);return`<tr><td style="font-size:13px;color:var(--t2)">${t.desc}</td><td><span style="background:var(--blu-l);color:var(--blu);font-size:11px;font-weight:700;padding:2px 10px;border-radius:6px">${t.station}</span></td><td style="font-size:13px;font-weight:600;color:${t.type==="Receivable"?"var(--amb)":"var(--blu)"}">${t.type}</td><td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t3)">${t.due||"—"}</td><td><span class="pdc-badge ${st.cls}">${st.label}</span></td><td class="num ${t.type==="Receivable"?"amb":"blu"}">${t.type==="Receivable"?"+":"-"}PKR ${N(t.amt)}</td></tr>`;}).join(""):`<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--t4);font-style:italic">No post-dated cheques recorded</td></tr>`}</table></div>`;
+}
+function selDay(k,i){SEL[k]=i;rS(k);}
+function go(k,btn){document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));btn.classList.add("active");document.getElementById("p-"+k).classList.add("active");if(k==="cumul")rC();}
+load();setInterval(load,5*60*1000);
+</script>
+</body>
+</html>
