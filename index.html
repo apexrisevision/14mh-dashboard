@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
+<title>14 Manzal Heights</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;font-family:'Inter',-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+
+[data-theme="dark"]{
+  --bg:        #000000;
+  --bg2:       #1C1C1E;
+  --bg3:       #2C2C2E;
+  --bg4:       #3A3A3C;
+  --sep:       rgba(255,255,255,0.08);
+  --sep2:      rgba(255,255,255,0.14);
+  --t1:        #FFFFFF;
+  --t2:        rgba(255,255,255,0.55);
+  --t3:        rgba(255,255,255,0.28);
+  --gold:      #FFD60A;
+  --gold-dim:  rgba(255,214,10,0.15);
+  --grn:       #30D158;
+  --grn-dim:   rgba(48,209,88,0.13);
+  --red:       #FF453A;
+  --red-dim:   rgba(255,69,58,0.13);
+  --blu:       #0A84FF;
+  --blu-dim:   rgba(10,132,255,0.13);
+  --amb:       #FF9F0A;
+  --amb-dim:   rgba(255,159,10,0.13);
+  --nav-bg:    rgba(18,18,18,0.92);
+  --hdr-bg:    rgba(0,0,0,0.88);
+  --card-bg:   #1C1C1E;
+  --row-hover: rgba(255,255,255,0.04);
+}
+[data-theme="light"]{
+  --bg:        #F2F2F7;
+  --bg2:       #FFFFFF;
+  --bg3:       #F2F2F7;
+  --bg4:       #E5E5EA;
+  --sep:       rgba(0,0,0,0.08);
+  --sep2:      rgba(0,0,0,0.14);
+  --t1:        #000000;
+  --t2:        rgba(0,0,0,0.5);
+  --t3:        rgba(0,0,0,0.28);
+  --gold:      #B8860B;
+  --gold-dim:  rgba(184,134,11,0.1);
+  --grn:       #34C759;
+  --grn-dim:   rgba(52,199,89,0.1);
+  --red:       #FF3B30;
+  --red-dim:   rgba(255,59,48,0.1);
+  --blu:       #007AFF;
+  --blu-dim:   rgba(0,122,255,0.1);
+  --amb:       #FF9500;
+  --amb-dim:   rgba(255,149,0,0.1);
+  --nav-bg:    rgba(242,242,247,0.92);
+  --hdr-bg:    rgba(242,242,247,0.88);
+  --card-bg:   #FFFFFF;
+  --row-hover: rgba(0,0,0,0.03);
+}
+
+/* ════════ APP SHELL ════════ */
+.app{
+  position:fixed;inset:0;
+  background:var(--bg);
+  display:flex;flex-direction:column;
+  padding-top:env(safe-area-inset-top);
+}
+
+/* ════════ TOP BAR ════════ */
+.topbar{
+  flex-shrink:0;
+  height:52px;
+  background:var(--hdr-bg);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:0.5px solid var(--sep);
+  display:flex;align-items:center;
+  padding:0 16px;gap:10px;
+  z-index:50;
+}
+.topbar-logo{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
+.logo-14{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(145deg,#C8960C,#FFD60A);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:900;color:#000;letter-spacing:-0.5px;
+  flex-shrink:0;box-shadow:0 2px 8px rgba(255,214,10,0.3);
+}
+.logo-text-wrap{min-width:0}
+.logo-title{font-size:15px;font-weight:700;color:var(--t1);letter-spacing:-0.3px;line-height:1.2}
+.logo-sub{font-size:10px;color:var(--t2);letter-spacing:0.1px}
+.topbar-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.tb-btn{
+  height:30px;border-radius:8px;border:none;cursor:pointer;
+  font-family:inherit;font-size:11px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:4px;
+  transition:opacity 0.1s;
+}
+.tb-btn:active{opacity:0.7}
+.tb-live{background:var(--grn-dim);color:var(--grn);padding:0 10px}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--grn);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.tb-qr{background:var(--gold-dim);color:var(--gold);padding:0 12px}
+.tb-theme{width:30px;background:var(--bg3);color:var(--t1);font-size:14px}
+
+/* ════════ SCROLL CONTENT ════════ */
+.scroll-area{
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  background:var(--bg);
+  padding-bottom:calc(56px + env(safe-area-inset-bottom) + 8px);
+}
+::-webkit-scrollbar{display:none}
+
+/* ════════ PANEL ════════ */
+.panel{display:none}
+.panel.active{display:block;animation:fadeUp 0.22s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ════════ PAGE TITLE ════════ */
+.pg-title-wrap{padding:20px 16px 12px}
+.pg-title{font-size:28px;font-weight:800;letter-spacing:-0.8px;color:var(--t1)}
+.pg-sub{font-size:13px;color:var(--t2);margin-top:2px;font-weight:400}
+.pg-row{display:flex;align-items:flex-end;justify-content:space-between}
+.date-pill{background:var(--gold-dim);border-radius:7px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:0.2px}
+
+/* ════════ DAY SELECTOR ════════ */
+.day-scroll{display:flex;gap:6px;padding:0 16px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.day-scroll::-webkit-scrollbar{display:none}
+.dbn{flex-shrink:0;padding:5px 13px;border-radius:7px;border:none;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;color:var(--t2);background:var(--bg2);transition:all 0.15s}
+.dbn:active{opacity:0.7}
+.dbn.active{background:var(--gold);color:#000;font-weight:700}
+
+/* ════════ KPI CARDS ════════ */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 4px}
+.kc{background:var(--card-bg);border-radius:14px;padding:16px 14px 14px;overflow:hidden;position:relative}
+.kc.span2{grid-column:1/-1}
+.kc-label{font-size:11px;font-weight:500;color:var(--t2);letter-spacing:0.1px;margin-bottom:7px}
+.kc-num{font-size:24px;font-weight:800;letter-spacing:-0.8px;color:var(--t1);font-variant-numeric:tabular-nums;line-height:1}
+.kc-num.g{color:var(--grn)}
+.kc-num.r{color:var(--red)}
+.kc-num.a{color:var(--amb)}
+.kc-delta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;margin-top:7px;padding:3px 7px;border-radius:5px}
+.kc-delta.up{background:var(--grn-dim);color:var(--grn)}
+.kc-delta.dn{background:var(--red-dim);color:var(--red)}
+.kc-glow{position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;opacity:0.06;pointer-events:none}
+.kc-glow.g{background:var(--grn)}
+.kc-glow.r{background:var(--red)}
+.kc-glow.a{background:var(--amb)}
+
+/* ════════ SECTION HEADER ════════ */
+.sec-hdr{padding:22px 16px 8px;display:flex;align-items:center;gap:8px}
+.sec-ico{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+.sec-ico.rs{background:var(--amb-dim);color:var(--amb)}
+.sec-ico.bk{background:var(--blu-dim);color:var(--blu)}
+.sec-ico.pd{background:var(--gold-dim);color:var(--gold)}
+.sec-title{font-size:13px;font-weight:700;color:var(--t2);letter-spacing:0.3px;text-transform:uppercase}
+
+/* ════════ iOS-STYLE GROUPED LIST ════════ */
+.group{background:var(--card-bg);border-radius:14px;margin:0 12px 10px;overflow:hidden}
+.group-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 14px 11px;border-bottom:0.5px solid var(--sep)}
+.g-label{font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase}
+.g-label.grn{color:var(--grn)}
+.g-label.red{color:var(--red)}
+.g-label.amb{color:var(--amb)}
+.g-label.blu{color:var(--blu)}
+.g-total{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.g-total.grn{color:var(--grn)}
+.g-total.red{color:var(--red)}
+.g-total.amb{color:var(--amb)}
+.g-total.blu{color:var(--blu)}
+
+.list-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--sep);gap:12px;transition:background 0.1s}
+.list-row:last-child{border-bottom:none}
+.list-row:active{background:var(--row-hover)}
+.list-row.total-row{background:rgba(255,255,255,0.03)}
+[data-theme="light"] .list-row.total-row{background:var(--bg3)}
+.list-desc{font-size:14px;color:var(--t1);flex:1;line-height:1.35;font-weight:400}
+.list-desc.muted{color:var(--t2);font-size:13px}
+.list-desc.bold{font-weight:600}
+.list-amt{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;flex-shrink:0}
+.list-amt.grn{color:var(--grn)}
+.list-amt.red{color:var(--red)}
+.list-amt.amb{color:var(--amb)}
+.list-amt.blu{color:var(--blu)}
+.list-amt.dim{color:var(--t2)}
+.empty{padding:20px 14px;text-align:center;font-size:13px;color:var(--t2);font-style:italic}
+
+/* ════════ BANK CARD ════════ */
+.bank-card{background:var(--card-bg);border-radius:14px;margin:0 12px 10px;overflow:hidden}
+.bank-head{
+  background:linear-gradient(145deg,#0F0F0F,#1A1A2E);
+  padding:16px 14px 14px;
+}
+[data-theme="light"] .bank-head{background:linear-gradient(145deg,#1C2E4A,#1B3A6B)}
+.bank-head-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.bank-logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(145deg,#1251AA,#2E86FF);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.bank-info-name{font-size:14px;font-weight:600;color:#fff;line-height:1.3}
+.bank-info-acc{font-size:10px;color:rgba(255,255,255,0.35);margin-top:1px;letter-spacing:0.5px;font-variant-numeric:tabular-nums}
+.bank-bal-label{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px;font-weight:500}
+.bank-bal{font-size:30px;font-weight:800;letter-spacing:-1px;color:#fff;font-variant-numeric:tabular-nums}
+.bank-bal.neg{color:#FF453A}
+.bank-bal.pos{color:#30D158}
+
+.bank-list-row{display:flex;align-items:flex-start;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--sep);gap:12px}
+.bank-list-row:last-child{border-bottom:none}
+.bank-list-row:active{background:var(--row-hover)}
+.bank-row-main{flex:1;min-width:0}
+.bank-row-desc{font-size:14px;color:var(--t1);line-height:1.35}
+.bank-row-desc.muted{color:var(--t2);font-size:13px}
+.bank-chips{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+.chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:5px;font-variant-numeric:tabular-nums}
+.chip.in{background:var(--grn-dim);color:var(--grn)}
+.chip.out{background:var(--red-dim);color:var(--red)}
+.bank-running{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;flex-shrink:0;padding-top:2px}
+.bank-running.pos{color:var(--t1)}
+.bank-running.neg{color:var(--red)}
+
+/* ════════ PDC ROW ════════ */
+.pdc-row{display:flex;align-items:flex-start;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--sep);gap:12px}
+.pdc-row:last-child{border-bottom:none}
+.pdc-main{flex:1;min-width:0}
+.pdc-desc{font-size:14px;color:var(--t1);line-height:1.35}
+.pdc-meta{display:flex;align-items:center;gap:6px;margin-top:5px;flex-wrap:wrap}
+.pdc-date{font-size:11px;color:var(--t2);font-variant-numeric:tabular-nums}
+.badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:0.2px}
+.badge.urgent{background:var(--red-dim);color:var(--red)}
+.badge.soon{background:var(--amb-dim);color:var(--amb)}
+.badge.ok{background:var(--bg3);color:var(--t2)}
+.pdc-amt{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;flex-shrink:0}
+.pdc-amt.amb{color:var(--amb)}
+.pdc-amt.blu{color:var(--blu)}
+
+/* ════════ CUMULATIVE ════════ */
+.cum-kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 16px 8px}
+.cum-kpi{background:var(--card-bg);border-radius:14px;padding:16px 14px}
+.cum-label{font-size:11px;font-weight:500;color:var(--t2);margin-bottom:7px}
+.cum-num{font-size:24px;font-weight:800;letter-spacing:-0.8px;color:var(--t1);font-variant-numeric:tabular-nums}
+.cum-num.g{color:var(--grn)}
+.cum-num.r{color:var(--red)}
+.cum-bar{height:3px;background:var(--bg4);border-radius:3px;margin-top:10px;overflow:hidden}
+.cum-fill{height:100%;border-radius:3px;width:0;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.cum-fill.cc{background:var(--grn)}
+.cum-fill.cb{background:var(--blu)}
+.cum-fill.cr{background:var(--amb)}
+.cum-fill.cp{background:var(--red)}
+
+.sum-table{background:var(--card-bg);border-radius:14px;margin:0 12px 10px;overflow:hidden}
+.sum-cap{padding:14px 14px 10px;border-bottom:0.5px solid var(--sep);display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px}
+.sum-cap-t{font-size:14px;font-weight:700;color:var(--t1)}
+.sum-cap-d{font-size:11px;color:var(--t2);font-variant-numeric:tabular-nums}
+.sum-row{display:flex;align-items:center;padding:10px 14px;border-bottom:0.5px solid var(--sep);gap:8px}
+.sum-row:last-child{border-bottom:none}
+.sum-row.sep-row{background:var(--bg3);padding:6px 14px}
+.sum-sep-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t2)}
+.sum-row.tot-row{background:rgba(255,214,10,0.04)}
+.sum-lbl{font-size:13px;color:var(--t1);flex:1}
+.sum-vals{display:flex;gap:2px;align-items:center}
+.sum-v{font-size:11px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right;min-width:68px}
+.sum-v.pos{color:var(--grn)}
+.sum-v.neg{color:var(--red)}
+.sum-v.neu{color:var(--t1)}
+.sum-v.tot{color:var(--gold);font-size:12px;min-width:76px}
+.sum-tag{font-size:8px;font-weight:700;color:var(--t3);font-variant-numeric:tabular-nums;width:24px;text-align:right}
+
+.pdc-table{background:var(--card-bg);border-radius:14px;margin:0 12px 10px;overflow:hidden}
+.pdc-cap{padding:14px 14px 10px;border-bottom:0.5px solid var(--sep);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px}
+.pdc-cap-t{font-size:14px;font-weight:700;color:var(--t1)}
+.pdc-cap-s{font-size:11px;color:var(--t2)}
+
+/* ════════ BOTTOM NAV ════════ */
+.bottom-nav{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  height:calc(56px + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  background:var(--nav-bg);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-top:0.5px solid var(--sep2);
+  display:flex;align-items:stretch;
+  z-index:100;
+}
+.nav-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;border:none;background:transparent;cursor:pointer;
+  padding:6px 4px 0;
+  transition:opacity 0.1s;
+}
+.nav-btn:active{opacity:0.6}
+.nav-icon{font-size:20px;line-height:1;transition:transform 0.2s cubic-bezier(.34,1.56,.64,1)}
+.nav-label{font-size:10px;font-weight:500;color:var(--t2);letter-spacing:0.1px;transition:color 0.15s}
+.nav-btn.active .nav-icon{transform:scale(1.08)}
+.nav-btn.active .nav-label{color:var(--gold);font-weight:700}
+.nav-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);margin-top:1px;display:none}
+.nav-btn.active .nav-dot{display:block}
+
+/* ════════ QR MODAL ════════ */
+.qr-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);align-items:flex-end;justify-content:center;padding-bottom:env(safe-area-inset-bottom)}
+.qr-bg.open{display:flex;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.qr-sheet{
+  background:var(--bg2);border-radius:24px 24px 0 0;
+  width:100%;max-width:480px;
+  padding:12px 20px 28px;
+  animation:slideUp 0.25s cubic-bezier(.34,1.4,.64,1);
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.qr-handle{width:36px;height:4px;background:var(--bg4);border-radius:2px;margin:0 auto 20px}
+.qr-inner{text-align:center}
+.qr-img{width:170px;height:170px;border-radius:16px;margin:0 auto 14px;display:block}
+.qr-name{font-size:17px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.qr-url{font-size:12px;color:var(--t2);margin-bottom:16px}
+.qr-link{font-size:11px;color:var(--gold);background:var(--gold-dim);padding:8px 12px;border-radius:9px;display:inline-block;margin-bottom:20px;word-break:break-all}
+.qr-close-btn{width:100%;padding:14px;border-radius:12px;border:none;background:var(--bg3);color:var(--t1);font-size:16px;font-weight:600;cursor:pointer;font-family:inherit}
+.qr-close-btn:active{opacity:0.7}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="logo-14">14</div>
+      <div class="logo-text-wrap">
+        <div class="logo-title">14 Manzal Heights</div>
+        <div class="logo-sub">14 Group of Companies</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button class="tb-btn tb-live"><span class="live-dot"></span>LIVE</button>
+      <button class="tb-btn tb-qr" onclick="document.getElementById('qrModal').classList.add('open')">QR</button>
+      <button class="tb-btn tb-theme" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    </div>
+  </div>
+
+  <!-- SCROLL AREA -->
+  <div class="scroll-area" id="scrollArea">
+
+    <!-- KBH -->
+    <div class="panel active" id="p-kbh">
+      <div class="pg-title-wrap">
+        <div class="pg-row">
+          <div><div class="pg-title">KBH</div><div class="pg-sub">Korangi Business Hub</div></div>
+          <div class="date-pill" id="kbh-chip">—</div>
+        </div>
+      </div>
+      <div class="day-scroll" id="kbh-dnav"></div>
+      <div class="kpi-grid" id="kbh-kpis"></div>
+      <div class="sec-hdr"><div class="sec-ico rs">₨</div><div class="sec-title">Cash Transactions</div></div>
+      <div id="kbh-cash"></div>
+      <div class="sec-hdr"><div class="sec-ico bk">B</div><div class="sec-title">Bank Al-Habib</div></div>
+      <div id="kbh-bank"></div>
+      <div class="sec-hdr"><div class="sec-ico pd">PDC</div><div class="sec-title">Post-Dated Cheques</div></div>
+      <div id="kbh-pdc"></div>
+      <div style="height:8px"></div>
+    </div>
+
+    <!-- FMH -->
+    <div class="panel" id="p-fmh">
+      <div class="pg-title-wrap">
+        <div class="pg-row">
+          <div><div class="pg-title">FMH</div><div class="pg-sub">Fatima Manzal Heights</div></div>
+          <div class="date-pill" id="fmh-chip">—</div>
+        </div>
+      </div>
+      <div class="day-scroll" id="fmh-dnav"></div>
+      <div class="kpi-grid" id="fmh-kpis"></div>
+      <div class="sec-hdr"><div class="sec-ico rs">₨</div><div class="sec-title">Cash Transactions</div></div>
+      <div id="fmh-cash"></div>
+      <div class="sec-hdr"><div class="sec-ico bk">B</div><div class="sec-title">Bank Al-Habib</div></div>
+      <div id="fmh-bank"></div>
+      <div class="sec-hdr"><div class="sec-ico pd">PDC</div><div class="sec-title">Post-Dated Cheques</div></div>
+      <div id="fmh-pdc"></div>
+      <div style="height:8px"></div>
+    </div>
+
+    <!-- AWAMI -->
+    <div class="panel" id="p-awami">
+      <div class="pg-title-wrap">
+        <div class="pg-row">
+          <div><div class="pg-title">Awami</div><div class="pg-sub">Awami Market Station</div></div>
+          <div class="date-pill" id="awami-chip">—</div>
+        </div>
+      </div>
+      <div class="day-scroll" id="awami-dnav"></div>
+      <div class="kpi-grid" id="awami-kpis"></div>
+      <div class="sec-hdr"><div class="sec-ico rs">₨</div><div class="sec-title">Cash Transactions</div></div>
+      <div id="awami-cash"></div>
+      <div class="sec-hdr"><div class="sec-ico bk">B</div><div class="sec-title">Bank Al-Habib</div></div>
+      <div id="awami-bank"></div>
+      <div class="sec-hdr"><div class="sec-ico pd">PDC</div><div class="sec-title">Post-Dated Cheques</div></div>
+      <div id="awami-pdc"></div>
+      <div style="height:8px"></div>
+    </div>
+
+    <!-- CUMULATIVE -->
+    <div class="panel" id="p-cumul">
+      <div class="pg-title-wrap">
+        <div class="pg-title">Summary</div>
+        <div class="pg-sub">All Stations Combined</div>
+      </div>
+      <div class="cum-kpis">
+        <div class="cum-kpi"><div class="cum-label">Total Cash</div><div class="cum-num" id="kc">—</div><div class="cum-bar"><div class="cum-fill cc" id="kc-b"></div></div></div>
+        <div class="cum-kpi"><div class="cum-label">Bank Balance</div><div class="cum-num" id="kb">—</div><div class="cum-bar"><div class="cum-fill cb" id="kb-b"></div></div></div>
+        <div class="cum-kpi"><div class="cum-label">PDC Receivable</div><div class="cum-num" id="kpr">—</div><div class="cum-bar"><div class="cum-fill cr" id="kpr-b"></div></div></div>
+        <div class="cum-kpi"><div class="cum-label">PDC Payable</div><div class="cum-num" id="kpp">—</div><div class="cum-bar"><div class="cum-fill cp" id="kpp-b"></div></div></div>
+      </div>
+      <div id="c-con"></div>
+      <div id="c-pdc"></div>
+      <div style="height:8px"></div>
+    </div>
+
+  </div><!-- /scroll-area -->
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" id="nav-kbh" onclick="go('kbh',this)">
+      <span class="nav-icon">🏢</span>
+      <span class="nav-label">KBH</span>
+      <span class="nav-dot"></span>
+    </button>
+    <button class="nav-btn" id="nav-fmh" onclick="go('fmh',this)">
+      <span class="nav-icon">🏗️</span>
+      <span class="nav-label">FMH</span>
+      <span class="nav-dot"></span>
+    </button>
+    <button class="nav-btn" id="nav-awami" onclick="go('awami',this)">
+      <span class="nav-icon">🏪</span>
+      <span class="nav-label">Awami</span>
+      <span class="nav-dot"></span>
+    </button>
+    <button class="nav-btn" id="nav-cumul" onclick="go('cumul',this)">
+      <span class="nav-icon">📊</span>
+      <span class="nav-label">Summary</span>
+      <span class="nav-dot"></span>
+    </button>
+  </nav>
+
+</div><!-- /app -->
+
+<!-- QR SHEET -->
+<div class="qr-bg" id="qrModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="qr-sheet">
+    <div class="qr-handle"></div>
+    <div class="qr-inner">
+      <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://apexrisevision.github.io/14mh-dashboard/&bgcolor=1C1C1E&color=FFD60A&margin=12&qzone=2" alt="QR">
+      <div class="qr-name">14 Manzal Heights</div>
+      <div class="qr-url">Daily Closing Dashboard</div>
+      <div class="qr-link">apexrisevision.github.io/14mh-dashboard</div>
+      <button class="qr-close-btn" onclick="document.getElementById('qrModal').classList.remove('open')">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── THEME ──
+function toggleTheme(){
+  const h=document.documentElement,t=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  h.setAttribute('data-theme',t);
+  document.getElementById('themeBtn').textContent=t==='dark'?'🌙':'☀️';
+  localStorage.setItem('14mh-theme',t);
+}
+(function(){
+  const t=localStorage.getItem('14mh-theme');
+  if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeBtn').textContent=t==='dark'?'🌙':'☀️';}
+})();
+
+// ── DATA ──
+const SHEETS={
+  kbh:{url:"https://script.google.com/macros/s/AKfycbxqsMAR8TvY6buTIUBwRofl85_petV1TxGGhEqTlB7r3BMu7D9LcKsYOW0PazX2pK_BrA/exec"},
+  fmh:{url:"https://script.google.com/macros/s/AKfycby6_tLs3Htrhve-z-_z7fKqPSXY4rjYYUC8CauKUMoOp1-AHw4dh2uVz8d7yJm9xv3k/exec"},
+  awami:{url:"https://script.google.com/macros/s/AKfycbxk-apaUah2s-OO0Bg7wVmW8ODtDd2pABH_WXU_B0zNqSmrgGJhiYXdYAAdXQvU6WCz/exec"}
+};
+let D={kbh:[],fmh:[],awami:[]},SEL={kbh:0,fmh:0,awami:0};
+const N=v=>Math.abs(Math.round(+v||0)).toLocaleString('en-PK');
+const sg=v=>(+v||0)>=0?'pos':'neg';
+
+function pD(s){if(!s)return[];return s.split('|').map(x=>{const p=x.split(':');if(p.length<2)return null;const d=p[0].trim(),a=parseFloat(p[p.length-1].replace(/,/g,''));return d?{desc:d,amt:isNaN(a)?0:a}:null;}).filter(Boolean);}
+function pBank(s){if(!s)return[];return s.split('|').map(x=>{const p=x.split(':');if(p.length<3)return null;const d=p[0].trim(),i=parseFloat(p[1])||0,o=parseFloat(p[2])||0;return(d&&(i||o))?{desc:d,in:i,out:o}:null;}).filter(Boolean);}
+function pP(s){if(!s)return[];return s.split('|').map(x=>{const i=x.lastIndexOf(':');if(i<0)return null;const full=x.slice(0,i).trim(),a=parseFloat(x.slice(i+1).replace(/,/g,''));const dm=full.match(/due (\d{2}\.\d{2}\.\d{4})/i);const due=dm?dm[1]:'';const desc=full.replace(/due \d{2}\.\d{2}\.\d{4}/i,'').trim();return{desc,amt:isNaN(a)?0:a,due};}).filter(Boolean);}
+function pSt(due){if(!due)return{cls:'ok',label:'Pending'};const[d,m,y]=due.split('.').map(Number);const diff=Math.ceil((new Date(y,m-1,d)-new Date())/864e5);if(diff<=3)return{cls:'urgent',label:'Due Soon'};if(diff<=10)return{cls:'soon',label:'In '+diff+'d'};return{cls:'ok',label:'In '+diff+'d'};}
+function anim(el,v,neg=false){const s=performance.now();(function f(n){const t=Math.min((n-s)/900,1),e=1-Math.pow(1-t,4),c=Math.round(Math.abs(+v||0)*e);el.textContent=(neg?'-':'')+'PKR '+c.toLocaleString('en-PK');if(t<1)requestAnimationFrame(f);})(s);}
+function jsonp(url){return new Promise((res,rej)=>{const id='cb_'+Math.random().toString(36).slice(2);window[id]=data=>{delete window[id];document.head.removeChild(s);res(data);};const s=document.createElement('script');s.src=url+(url.includes('?')?'&':'?')+'callback='+id;s.onerror=()=>{delete window[id];document.head.removeChild(s);rej(new Error('f'));};document.head.appendChild(s);});}
+
+async function load(){
+  for(const k of['kbh','fmh','awami']){
+    try{const j=await jsonp(SHEETS[k].url);D[k]=j.map(r=>({...r,closing_cash:(+r.opening_cash)+(+r.cash_in)-(+r.cash_out),closing_bank:(+r.opening_bank)+(+r.bank_in)-(+r.bank_out)}));}
+    catch(e){console.error(k,e);}
+  }
+  Object.keys(SEL).forEach(k=>SEL[k]=Math.max(0,D[k].length-1));
+  renderAll();
+  document.getElementById('scrollArea').dispatchEvent(new Event('dataLoaded'));
+}
+
+function renderAll(){['kbh','fmh','awami'].forEach(rS);rC();}
+
+function rS(k){
+  const rows=D[k];if(!rows.length)return;
+  const idx=SEL[k],d=rows[idx],prev=idx>0?rows[idx-1]:null;
+  document.getElementById(k+'-chip').textContent=d.date;
+  document.getElementById(k+'-dnav').innerHTML=rows.map((r,i)=>`<button class="dbn${i===idx?' active':''}" onclick="selDay('${k}',${i})">${r.date}</button>`).join('');
+
+  const cd=prev?d.closing_cash-prev.closing_cash:0,bd=prev?d.closing_bank-prev.closing_bank:0;
+  document.getElementById(k+'-kpis').innerHTML=`
+    <div class="kc"><div class="kc-glow"></div><div class="kc-label">Opening Cash</div><div class="kc-num" id="${k}-oc">—</div></div>
+    <div class="kc"><div class="kc-glow g"></div><div class="kc-label">Cash Received</div><div class="kc-num g" id="${k}-ci">—</div></div>
+    <div class="kc"><div class="kc-glow r"></div><div class="kc-label">Cash Paid</div><div class="kc-num r" id="${k}-co">—</div></div>
+    <div class="kc"><div class="kc-glow g"></div><div class="kc-label">Closing Cash</div><div class="kc-num ${d.closing_cash>=0?'g':'r'}" id="${k}-cc">—</div>${prev?`<div class="kc-delta ${cd>=0?'up':'dn'}">${cd>=0?'▲':'▼'} PKR ${N(Math.abs(cd))}</div>`:''}</div>
+    <div class="kc span2"><div class="kc-glow a"></div><div class="kc-label">Bank Balance</div><div class="kc-num ${d.closing_bank>=0?'g':'r'}" id="${k}-bk">—</div>${prev?`<div class="kc-delta ${bd>=0?'up':'dn'}">${bd>=0?'▲':'▼'} PKR ${N(Math.abs(bd))}</div>`:''}</div>`;
+  setTimeout(()=>{anim(document.getElementById(k+'-oc'),d.opening_cash,d.opening_cash<0);anim(document.getElementById(k+'-ci'),d.cash_in);anim(document.getElementById(k+'-co'),d.cash_out);anim(document.getElementById(k+'-cc'),d.closing_cash,d.closing_cash<0);anim(document.getElementById(k+'-bk'),d.closing_bank,d.closing_bank<0);},80);
+
+  const iT=pD(d.cash_in_detail),oT=pD(d.cash_out_detail);
+  document.getElementById(k+'-cash').innerHTML=`
+    <div class="group"><div class="group-hdr"><span class="g-label grn">▲ RECEIVED</span><span class="g-total grn">PKR ${N(d.cash_in)}</span></div>${iT.length?iT.map(t=>`<div class="list-row"><span class="list-desc">${t.desc}</span><span class="list-amt grn">+${N(t.amt)}</span></div>`).join('')+`<div class="list-row total-row"><span class="list-desc bold">Total Received</span><span class="list-amt grn">+PKR ${N(d.cash_in)}</span></div>`:`<div class="empty">No cash received</div>`}</div>
+    <div class="group"><div class="group-hdr"><span class="g-label red">▼ PAID</span><span class="g-total red">PKR ${N(d.cash_out)}</span></div>${oT.length?oT.map(t=>`<div class="list-row"><span class="list-desc">${t.desc}</span><span class="list-amt red">-${N(t.amt)}</span></div>`).join('')+`<div class="list-row total-row"><span class="list-desc bold">Total Paid</span><span class="list-amt red">-PKR ${N(d.cash_out)}</span></div>`:`<div class="empty">No cash paid</div>`}</div>`;
+
+  let rb=+d.opening_bank;
+  const bR=pBank(d.bank_detail||'');
+  document.getElementById(k+'-bank').innerHTML=`<div class="bank-card"><div class="bank-head"><div class="bank-head-row"><div class="bank-logo">AL</div><div><div class="bank-info-name">Bank Al-Habib</div><div class="bank-info-acc">PK67 BAHL 2006 0981 0099 3501</div></div></div><div class="bank-bal-label">CURRENT BALANCE</div><div class="bank-bal ${d.closing_bank>=0?'pos':'neg'}">${d.closing_bank<0?'-':''}PKR ${N(d.closing_bank)}</div></div><div>${bR.length||true?`<div class="bank-list-row"><div class="bank-row-main"><div class="bank-row-desc muted">Opening Balance — ${d.date}</div></div><div class="bank-running ${rb>=0?'pos':'neg'}">${rb<0?'-':''}PKR ${N(rb)}</div></div>`:''}${bR.map(t=>{rb+=t.in>0?t.in:-t.out;return`<div class="bank-list-row"><div class="bank-row-main"><div class="bank-row-desc">${t.desc}</div><div class="bank-chips">${t.in>0?`<span class="chip in">+PKR ${N(t.in)}</span>`:''}${t.out>0?`<span class="chip out">-PKR ${N(t.out)}</span>`:''}</div></div><div class="bank-running ${rb>=0?'pos':'neg'}">${rb<0?'-':''}PKR ${N(rb)}</div></div>`;}).join('')}<div class="bank-list-row total-row"><div class="bank-row-main"><div class="bank-row-desc bold">Closing Balance</div></div><div class="bank-running" style="color:var(--gold)">${d.closing_bank<0?'-':''}PKR ${N(d.closing_bank)}</div></div></div></div>`;
+
+  const pR=pP(d.pdc_received||''),pI=pP(d.pdc_issued||'');
+  document.getElementById(k+'-pdc').innerHTML=`
+    <div class="group"><div class="group-hdr"><span class="g-label amb">PDC RECEIVABLE</span><span class="g-total amb">PKR ${N(pR.reduce((s,t)=>s+t.amt,0))}</span></div>${pR.length?pR.map(t=>{const st=pSt(t.due);return`<div class="pdc-row"><div class="pdc-main"><div class="pdc-desc">${t.desc}</div><div class="pdc-meta"><span class="pdc-date">${t.due||'—'}</span><span class="badge ${st.cls}">${st.label}</span></div></div><div class="pdc-amt amb">+PKR ${N(t.amt)}</div></div>`;}).join('')+`<div class="list-row total-row"><span class="list-desc bold">Total Receivable</span><span class="list-amt amb">PKR ${N(pR.reduce((s,t)=>s+t.amt,0))}</span></div>`:`<div class="empty">No PDC receivable</div>`}</div>
+    <div class="group"><div class="group-hdr"><span class="g-label blu">PDC PAYABLE</span><span class="g-total blu">PKR ${N(pI.reduce((s,t)=>s+t.amt,0))}</span></div>${pI.length?pI.map(t=>{const st=pSt(t.due);return`<div class="pdc-row"><div class="pdc-main"><div class="pdc-desc">${t.desc}</div><div class="pdc-meta"><span class="pdc-date">${t.due||'—'}</span><span class="badge ${st.cls}">${st.label}</span></div></div><div class="pdc-amt blu">-PKR ${N(t.amt)}</div></div>`;}).join('')+`<div class="list-row total-row"><span class="list-desc bold">Total Payable</span><span class="list-amt blu">PKR ${N(pI.reduce((s,t)=>s+t.amt,0))}</span></div>`:`<div class="empty">No PDC payable</div>`}</div>`;
+}
+
+function rC(){
+  const lat={};['kbh','fmh','awami'].forEach(k=>{const r=D[k];lat[k]=r.length?r[r.length-1]:null;});
+  const kd=lat.kbh,fd=lat.fmh,cd=lat.awami;
+  const tCC=(kd?kd.closing_cash:0)+(fd?fd.closing_cash:0)+(cd?cd.closing_cash:0);
+  const tCB=(kd?kd.closing_bank:0)+(fd?fd.closing_bank:0)+(cd?cd.closing_bank:0);
+  const tPR=[...(kd?pP(kd.pdc_received):[]),...(fd?pP(fd.pdc_received):[]),...(cd?pP(cd.pdc_received):[])].reduce((s,t)=>s+t.amt,0);
+  const tPI=[...(kd?pP(kd.pdc_issued):[]),...(fd?pP(fd.pdc_issued):[]),...(cd?pP(cd.pdc_issued):[])].reduce((s,t)=>s+t.amt,0);
+  const mx=Math.max(Math.abs(tCC),Math.abs(tCB),tPR,tPI)||1;
+  const E=id=>document.getElementById(id);
+  setTimeout(()=>{
+    anim(E('kc'),tCC,tCC<0);anim(E('kb'),tCB,tCB<0);anim(E('kpr'),tPR);anim(E('kpp'),tPI);
+    E('kc-b').style.width=(Math.abs(tCC)/mx*100)+'%';E('kb-b').style.width=(Math.abs(tCB)/mx*100)+'%';
+    E('kpr-b').style.width=(tPR/mx*100)+'%';E('kpp-b').style.width=(tPI/mx*100)+'%';
+    if(tCC<0)E('kc').className='cum-num r';if(tCB<0)E('kb').className='cum-num r';
+  },80);
+  const latDate=[kd?kd.date:'',fd?fd.date:'',cd?cd.date:''].filter(Boolean).sort().pop()||'—';
+  const rows=[
+    {sep:'CASH'},{lbl:'Opening',kv:kd?kd.opening_cash:null,fv:fd?fd.opening_cash:null,cv:cd?cd.opening_cash:null,gc:v=>v>=0?'neu':'neg'},
+    {lbl:'Received',kv:kd?+kd.cash_in:null,fv:fd?+fd.cash_in:null,cv:cd?+cd.cash_in:null,gc:()=>'pos'},
+    {lbl:'Paid',kv:kd?+kd.cash_out:null,fv:fd?+fd.cash_out:null,cv:cd?+cd.cash_out:null,gc:()=>'neg'},
+    {lbl:'Closing Cash',kv:kd?kd.closing_cash:null,fv:fd?fd.closing_cash:null,cv:cd?cd.closing_cash:null,gc:v=>v>=0?'pos':'neg',tot:true},
+    {sep:'BANK'},{lbl:'Opening',kv:kd?kd.opening_bank:null,fv:fd?fd.opening_bank:null,cv:cd?cd.opening_bank:null,gc:v=>v>=0?'neu':'neg'},
+    {lbl:'Receipts',kv:kd?+kd.bank_in:null,fv:fd?+fd.bank_in:null,cv:cd?+cd.bank_in:null,gc:()=>'pos'},
+    {lbl:'Payments',kv:kd?+kd.bank_out:null,fv:fd?+fd.bank_out:null,cv:cd?+cd.bank_out:null,gc:()=>'neg'},
+    {lbl:'Closing Bank',kv:kd?kd.closing_bank:null,fv:fd?fd.closing_bank:null,cv:cd?cd.closing_bank:null,gc:v=>v>=0?'pos':'neg',tot:true}
+  ];
+  function fv(v,gc){if(v===null)return`<span class="sum-v neu">—</span>`;const n=+v||0;return`<span class="sum-v ${gc(n)}">${n<0?'-':''}${N(Math.abs(n))}</span>`;}
+  E('c-con').innerHTML=`<div class="sum-table"><div class="sum-cap"><span class="sum-cap-t">Cash & Bank</span><span class="sum-cap-d">${latDate}</span></div>${rows.map(r=>{if(r.sep)return`<div class="sum-row sep-row"><span class="sum-sep-lbl">${r.sep}</span></div>`;const tv=(r.kv||0)+(r.fv||0)+(r.cv||0);return`<div class="sum-row${r.tot?' tot-row':''}"><span class="sum-lbl">${r.lbl}</span><div class="sum-vals"><span class="sum-tag">KBH</span>${fv(r.kv,r.gc)}<span class="sum-tag">FMH</span>${fv(r.fv,r.gc)}<span class="sum-tag">AWM</span>${fv(r.cv,r.gc)}<span class="sum-v tot">${tv<0?'-':''}${N(Math.abs(tv))}</span></div></div>`;}).join('')}</div>`;
+  const aP=[];['kbh','fmh','awami'].forEach(k=>{const d=lat[k];if(!d)return;const lb={kbh:'KBH',fmh:'FMH',awami:'AWM'}[k];pP(d.pdc_received).forEach(t=>aP.push({...t,station:lb,type:'rcv'}));pP(d.pdc_issued).forEach(t=>aP.push({...t,station:lb,type:'pay'}));});
+  aP.sort((a,b)=>{const f=s=>{if(!s)return 99999;const[d,m,y]=s.split('.').map(Number);return new Date(y,m-1,d)-new Date();};return f(a.due)-f(b.due);});
+  const tPR2=aP.filter(x=>x.type==='rcv').reduce((s,t)=>s+t.amt,0),tPI2=aP.filter(x=>x.type==='pay').reduce((s,t)=>s+t.amt,0);
+  E('c-pdc').innerHTML=`<div class="pdc-table"><div class="pdc-cap"><span class="pdc-cap-t">Post-Dated Cheques</span><span class="pdc-cap-s">Rcv: PKR ${N(tPR2)} · Pay: PKR ${N(tPI2)}</span></div>${aP.length?aP.map(t=>{const st=pSt(t.due);return`<div class="pdc-row"><div class="pdc-main"><div class="pdc-desc">${t.desc}</div><div class="pdc-meta"><span class="badge ok">${t.station}</span><span class="pdc-date">${t.due||'—'}</span><span class="badge ${st.cls}">${st.label}</span></div></div><div class="pdc-amt ${t.type==='rcv'?'amb':'blu'}">${t.type==='rcv'?'+':'-'}PKR ${N(t.amt)}</div></div>`;}).join(''):`<div class="empty">No post-dated cheques</div>`}</div>`;
+}
+
+function selDay(k,i){SEL[k]=i;rS(k);document.getElementById('scrollArea').scrollTo({top:0,behavior:'smooth'});}
+function go(k,btn){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('p-'+k).classList.add('active');
+  document.getElementById('scrollArea').scrollTo({top:0,behavior:'instant'});
+  if(k==='cumul')rC();
+}
+load();setInterval(load,5*60*1000);
+</script>
+</body>
+</html>
